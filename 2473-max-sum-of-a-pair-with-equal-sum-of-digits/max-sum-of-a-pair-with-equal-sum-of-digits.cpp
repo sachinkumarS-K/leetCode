@@ -23,13 +23,12 @@ public:
         //  }
         //  int maxSum = -1;
         //  for (int i = 0; i < n; i++){
-        //          for (int j = i + 1; j < n; j++){
-        //                  if(arr[i] == arr[j]){
-        //                          if((nums[i] + nums[j]) > maxSum ){
-        //                                  maxSum = nums[i] + nums[j];
-        //                          }
-
+        //       for (int j = i + 1; j < n; j++){
+        //            if(arr[i] == arr[j]){
+        //                if((nums[i] + nums[j]) > maxSum ){
+        //                         maxSum = nums[i] + nums[j];
         //                 }
+        //            }
         //         }
         // }
         int maxSum = -1;
