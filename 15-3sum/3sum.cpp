@@ -1,7 +1,6 @@
 class Solution {
 public:
     vector<vector<int>> twoSum(vector<int> arr, int n, int t) {
-
         vector<vector<int>> ans;
         int l = n, h = arr.size() - 1;
         while (l < h) {
@@ -10,9 +9,9 @@ public:
             if (s == t) {
                 ans.push_back({arr[n - 1], arr[l], arr[h]});
                 while (l < h && arr[l] == arr[l + 1])
-                        l++;
+                    l++;
                 while (l < h && arr[h] == arr[h - 1])
-                        h--;
+                    h--;
                 l++;
                 h--;
             } else if (s > t) {
