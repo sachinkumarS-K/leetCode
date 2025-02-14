@@ -36,8 +36,20 @@ public:
         if (arr.size() == 0)
             return ans;
 
-        ans[0] = firstOcc(arr, 0, arr.size() - 1, t);
-        ans[1] = lastOcc(arr, 0, arr.size() - 1, t);
+        // ans[0] = firstOcc(arr, 0, arr.size() - 1, t);
+        // ans[1] = lastOcc(arr, 0, arr.size() - 1, t);
+        int l = 0 , h = arr.size()-1;
+
+        while(l<arr.size() && arr[l] != t) 
+            l++;
+        
+        while(h>0 && arr[h] != t)
+            h-- ;
+        
+        if(l<=h){
+            ans[0] = l;
+            ans[1] = h;
+        }
 
         return ans;
     }
