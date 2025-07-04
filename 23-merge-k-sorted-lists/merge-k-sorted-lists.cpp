@@ -10,36 +10,27 @@
  */
 class Solution {
 public:
-    ListNode *merge(ListNode *a , ListNode *b){
-        ListNode *dummy = new ListNode(-1);
-        ListNode *temp = dummy ;
-        while(a && b){
-            if(a->val <= b->val){
-                temp->next = a;
-                a = a->next;
-            }
-            else{
-                temp->next = b;
-                b = b->next;
-            }
-            temp = temp->next;
+    typedef pair<int, ListNode*> ppi;
+    ListNode* mergeKLists(vector<ListNode*>& arr) {
+        ListNode* dummy = new ListNode(-1);
+        ListNode* temp = dummy;
+
+        priority_queue<ppi , vector<ppi> , greater<ppi>>pq ;
+        for(int i = 0 ; i<arr.size() ; i++){
+            if(arr[i] != nullptr)
+                pq.push({arr[i]->val , arr[i]});
         }
-        if(a)
-            temp->next = a;
-        if(b)
-            temp->next = b ;
+        while(!pq.empty()){
+            auto curr = pq.top();
+            pq.pop();
+            temp->next = curr.second;
+            temp = temp->next;
+
+            if(curr.second->next != nullptr){
+                    pq.push({curr.second->next->val ,curr.second->next});
+            }
+        }
 
         return dummy->next;
-    }
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
-        while(lists.size() > 1){
-            ListNode *a = lists[0];
-            lists.erase(lists.begin());
-            ListNode *b = lists[0];
-            lists.erase(lists.begin());
-            ListNode *merged = merge(a,b);
-            lists.push_back(merged);
-        }
-        return lists.empty() ? nullptr : lists[0];
     }
 };
