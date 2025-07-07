@@ -11,23 +11,19 @@
 class Solution {
 public:
     ListNode* modifiedList(vector<int>& nums, ListNode* head) {
-        set<int> occ;
-        for (int i : nums)
-            occ.insert(i);
+         set<int> occ(nums.begin(), nums.end());
 
-        ListNode* curr = head;
-        while (curr && curr->next) {
-            if (occ.find(curr->val) != occ.end()) {
-                if (curr == head)
-                    head = curr->next;
-            }
-            else if(occ.find(curr->next->val) != occ.end()){
+        ListNode* dummy = new ListNode(-1); 
+        dummy->next = head;
+        ListNode *curr = dummy ;
+        while(curr && curr->next){
+            if(occ.find(curr->next->val) != occ.end()){
                 curr->next = curr->next->next;
-                continue;
             }
-            curr = curr->next;
+            else{
+                curr = curr->next;
+            }
         }
-
-        return head;
+        return dummy->next;
     }
 };
