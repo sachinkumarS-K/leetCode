@@ -18,6 +18,20 @@ public:
        return 1 + countNodes(root->left) + countNodes(root->right);
     }
     int countNodes(TreeNode* root) {
-        return count(root);
+        int lh = 0 , rh = 0 ;
+        TreeNode *curr = root ;
+        while(curr){
+            lh++ ;
+            curr = curr->left;
+        }
+        curr = root ;
+        while(curr){
+            rh++ ;
+            curr = curr->right;
+        }
+        if(lh == rh)
+            return (1 << lh) - 1;
+        else
+            return 1 + countNodes(root->left) + countNodes(root->right);
     }
 };
