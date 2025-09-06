@@ -11,26 +11,34 @@
 class Solution {
 public:
     typedef pair<int, ListNode*> ppi;
-    ListNode* mergeKLists(vector<ListNode*>& arr) {
-        ListNode* dummy = new ListNode(-1);
-        ListNode* temp = dummy;
-
-        priority_queue<ppi , vector<ppi> , greater<ppi>>pq ;
-        for(int i = 0 ; i<arr.size() ; i++){
-            if(arr[i] != nullptr)
-                pq.push({arr[i]->val , arr[i]});
-        }
-        while(!pq.empty()){
-            auto curr = pq.top();
-            pq.pop();
-            temp->next = curr.second;
-            temp = temp->next;
-
-            if(curr.second->next != nullptr){
-                    pq.push({curr.second->next->val ,curr.second->next});
+    ListNode *merge(ListNode *h1 , ListNode *h2){
+         ListNode *dummy = new ListNode(-1);
+        ListNode *temp = dummy;
+        while (h1 && h2) {
+            if (h1->val > h2->val) {
+                temp->next = h2;
+                h2 = h2->next;
+            } else {
+                temp->next = h1;
+                h1 = h1->next;
             }
+            temp = temp->next;
         }
+
+        if (h1) temp->next = h1;
+        if (h2) temp->next = h2;
 
         return dummy->next;
+    }
+    ListNode* merge(vector<ListNode*>& arr , int curr){
+        if (curr == arr.size() - 1)
+            return arr[curr];
+        
+        return merge(merge(arr, curr + 1), arr[curr]);
+    }
+    ListNode* mergeKLists(vector<ListNode*>& arr) {
+       if (arr.empty()) return nullptr;
+        return merge(arr, 0);
+        
     }
 };
