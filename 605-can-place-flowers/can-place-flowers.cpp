@@ -1,18 +1,17 @@
 class Solution {
 public:
-    bool canPlaceFlowers(vector<int>& arr, int n) {
-        int c = 0 ;
-        for(int i = 0 ; i<arr.size() ; i++){
-            if(arr[i] == 0){
-                int isLeft = (i == 0 || arr[i-1] == 0) ;
-                int isRight = (i == arr.size() - 1 || arr[i+1] == 0) ;
-
-                if(isRight && isLeft){
-                    arr[i] = 1 ;
-                    c++ ;
+    bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+        for (int i = 0; i < flowerbed.size(); i++) {
+            if (flowerbed[i] == 0) {
+                int left = (i == 0 || flowerbed[i - 1] == 0);
+                int right =
+                    (i == flowerbed.size() - 1 || flowerbed[i + 1] == 0);
+                if (left && right){
+                    flowerbed[i] = 1;
+                    n--;
                 }
             }
         }
-        return c >= n  ;
+        return n <= 0;
     }
 };
