@@ -1,40 +1,36 @@
 class Solution {
-    void reverse(string& str, int l, int h) {
-        while (l < h)
-            swap(str[l++], str[h--]);
-    }
-
 public:
-    string reverseWords(string s) {
-        string ans;
-        int i = 0, n = s.length();
-        while (i < n && s[i] == ' ')
-            i++;
-        bool spaceAdded = false;
-        for (; i < n; i++) {
-            if (s[i] != ' ') {
-                ans += s[i];
-                spaceAdded = false;
-            } else if (!spaceAdded) {
-                ans += ' ';
-                spaceAdded = true;
+    string reverseWords(string str) {
+        int s = 0 ;
+        while(1){
+            if(str[s] != ' ')
+                break;
+            s++;
+        }
+        int e = str.size()-1;
+        while(1){
+            if(str[e] != ' ')
+                break;
+            e--;
+        }
+        vector<string>st;
+        int l = s;
+        for(int i = s ; i<e ; i++){
+            if(str[i] == ' ' && str[l] == ' ')
+                l++;
+            else if(str[i] == ' '){
+                st.push_back(str.substr(l , i-l));
+                l = i+1;
             }
         }
-
-        if (!ans.empty() && ans.back() == ' ')
-            ans.pop_back();
-
-        reverse(ans, 0, ans.size() - 1);
-
-        int idx = 0;
-        for (i = 0; i < ans.length(); i++) {
-            if (ans[i] == ' ') {
-                reverse(ans, idx, i - 1);
-                idx = i + 1;
-            }
+        st.push_back(str.substr(l , e-l+1));
+        string ans = "";
+        for(int i = st.size()-1 ; i>= 0 ; i--){
+            ans += st[i];
+            if(i != 0)
+                ans += " ";
         }
-        reverse(ans, idx, ans.size() - 1);
-
+            
         return ans;
     }
 };
