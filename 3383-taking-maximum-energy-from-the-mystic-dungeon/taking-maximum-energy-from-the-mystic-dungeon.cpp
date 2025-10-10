@@ -9,14 +9,24 @@ public:
         int inc = energy[i] + solve(i+k , k , energy , dp);
         return dp[i] = inc;
     }
+    int solveUsingTab(int k , vector<int>&arr){
+        int n = arr.size();
+        vector<int> dp(n+1 , 0);
+        int maxEnergy = INT_MIN ;
+        for(int i = n-1 ; i>= 0 ; i--){
+            if(i + k < n)
+                dp[i] = dp[i+k] + arr[i];
+            else
+                dp[i] = arr[i];
+
+            maxEnergy = max(dp[i] , maxEnergy);
+        }
+        return maxEnergy;
+    }
     int maximumEnergy(vector<int>& energy, int k) {
         int n = energy.size();
         vector<int> dp(n , INT_MIN);
-        int maxEnergy = INT_MIN;
 
-        for(int i = 0 ; i < n ; i++)
-            maxEnergy = max(solve(i , k , energy , dp) , maxEnergy);
-        
-        return maxEnergy;
+        return solveUsingTab(k , energy);                
     }
 };
