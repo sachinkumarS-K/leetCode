@@ -1,26 +1,23 @@
 class Solution {
 public:
-    string countAndSay(int n) {
-        if(n == 1)  return "1";
-        if(n == 2) return "11" ;
-        string ans = "11" ;
-
-        for(int i = 3 ; i<=n ; i++){
-            string t = "" ;
-            int c = 1 ;
-            ans = ans + '*' ;
-            for(int j = 1 ; j<ans.length() ; j++){
-               if(ans[j] != ans[j-1]){
-                    t = t + to_string(c);
-                    t = t + ans[j-1] ;
-                    c = 1 ;
-               }
-               else{
-                c++ ;
-               }
+    string solve(const string& str){
+        string ans = "";
+        int c = 1;
+        for(int i = 1 ; i<str.size() ; i++){
+            if(str[i] == str[i-1])
+                c++;
+            else{
+                ans += to_string(c) + str[i-1];
+                c = 1;
             }
-            ans = t ;
         }
-        return ans ;
+        ans += to_string(c) + str.back();
+        return ans;
+    }
+    string countAndSay(int n) {
+        if(n == 1)
+            return "1";
+        return
+            solve(countAndSay(n-1));
     }
 };
