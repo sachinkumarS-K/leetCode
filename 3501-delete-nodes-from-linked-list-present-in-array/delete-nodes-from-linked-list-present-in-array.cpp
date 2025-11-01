@@ -10,20 +10,19 @@
  */
 class Solution {
 public:
-    ListNode* modifiedList(vector<int>& nums, ListNode* head) {
-         set<int> occ(nums.begin(), nums.end());
-
-        ListNode* dummy = new ListNode(-1); 
+    ListNode* modifiedList(vector<int>& arr, ListNode* head) {
+        set<int> st(arr.begin(), arr.end());
+        ListNode* dummy = new ListNode(-1);
         dummy->next = head;
-        ListNode *curr = dummy ;
-        while(curr && curr->next){
-            if(occ.find(curr->next->val) != occ.end()){
+        ListNode* curr = dummy;
+
+        while (curr && curr->next) {
+            if (st.find(curr->next->val) != st.end())
                 curr->next = curr->next->next;
-            }
-            else{
+            else
                 curr = curr->next;
-            }
         }
+
         return dummy->next;
     }
 };
