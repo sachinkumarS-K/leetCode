@@ -1,17 +1,15 @@
 class Solution {
 public:
-    int solve(vector<int>&arr , int i , int amt){
-        if(i == arr.size()) return 0 ;
-        
-        int profit = arr[i] - amt ;
-        amt = min(amt , arr[i]);
-        int nextProfit = solve(arr , i+1 , amt);
-
-        return max(profit , nextProfit);
-    }
-    int maxProfit(vector<int>& prices) {
-        if(prices.size() < 2)   return 0 ;
-        int ans = solve(prices , 1 , prices[0]);
-        return ans;
+    int maxProfit(vector<int>& arr) {
+        int maxi = INT_MIN , bestBuy = arr[0];
+        for(int i = 1 ; i<arr.size() ; i++){
+            if(bestBuy > arr[i]){
+                bestBuy = arr[i];
+            }
+            else if(arr[i]-bestBuy > maxi){
+                maxi = arr[i] - bestBuy;
+            }
+        }
+        return maxi == INT_MIN ? 0 : maxi;
     }
 };
