@@ -1,14 +1,20 @@
 class Solution {
+    int solve(int i, int n) {
+        if (i >= n)
+            return 0;
+        return inner(i, i + 1, n) + solve(i + 1, n);
+    }
+
+    int inner(int i, int j, int n) {
+        if (j >= n)
+            return 0;
+        int t = i * i + j * j;
+        int k = (int) Math.sqrt(t);
+        int c = (k * k == t && k <= n) ? 2 : 0;
+        return c + inner(i, j + 1, n);
+    }
+
     public int countTriples(int n) {
-        int count = 0;
-        for (int i = 1; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                int t = i*i + j*j ;
-                int k = (int) Math.sqrt(t);
-                if(k*k == t && k <= n)
-                    count += 2;
-            }
-        }
-        return count;
+        return solve(1, n);
     }
 }
