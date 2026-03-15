@@ -1,43 +1,30 @@
 class Solution {
 public:
     int check(vector<int>& arr, int h, int m) {
-        int t = 0;
-        if(m == 0) return 0 ;
-        for (int i = 0; i < arr.size(); i++) {
-            if (arr[i] % m == 0)
-                t += arr[i] / m;
-            else
-                t += (arr[i] / m + 1);
-            if (t > h)
-                return 0;
+        long long count = 0;
+        for(int i : arr){
+            int rem = i % m;
+            if(rem != 0)
+                count++;
+            count += i/m;
         }
-
-        return 1;
+        return count <= h;
     }
-    int minEatingSpeed(vector<int>& piles, int h) {
-        if (piles.size() == 1){
-            if(piles[0] < h){
-                return piles[0]/h +1;
-            }
-            else if(piles[0] % h == 0)
-                return piles[0]/h ;
-        }
-           
-       
-        int hi = INT_MIN;
-        for (int i : piles)
-            hi = max(hi, i);
-        int li = 0, ans = 0;
-        while (li <= hi) {
-            int m = li + (hi - li) / 2;
-            if (check(piles, h, m)) {
+    int minEatingSpeed(vector<int>& piles, int hour) {
+        int l = 1 , h = 0 ;
+        for(int i : piles)
+            h = max(i , h);
+        int ans = h;
+        while(l <= h){
+            int m = l + (h-l)/2;
+            if(check(piles , hour , m)){
                 ans = m;
-                hi = m - 1;
-            } else {
-                li = m + 1;
+                h = m-1;
+            }
+            else{
+                l = m+1;
             }
         }
-
         return ans;
     }
 };
