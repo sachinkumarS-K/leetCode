@@ -1,18 +1,36 @@
 class Solution {
 public:
-    string check(string str) {
-        string ans;
-        int i = 0;
-        while (i < str.size()) {
-            if (str[i] == '#') {
-                if (!ans.empty())
-                    ans.pop_back();
-            } else {
-                ans.push_back(str[i]);
+    bool backspaceCompare(string s, string t) {
+        int i = s.size() - 1, j = t.size() - 1;
+        int skipT = 0 , skipS = 0 ;
+        while (i >= 0 || j >= 0) {
+            while(i >= 0){
+                if(s[i] == '#')
+                    skipS++;
+                else if(skipS > 0)
+                    skipS--;
+                else
+                    break;
+                i--;
             }
-            i++;
+            while(j >= 0){
+                if(t[j] == '#')
+                    skipT++;
+                else if(skipT > 0)
+                    skipT--;
+                else
+                    break;
+                j--;
+            }
+            char first = i == -1 ? '.' : s[i];
+            char second = j == -1 ? '.' : t[j] ;
+
+            if(first != second)
+                return false;
+
+            i--;
+            j--;
         }
-        return ans;
+        return true;
     }
-    bool backspaceCompare(string s, string t) { return check(s) == check(t); }
 };
