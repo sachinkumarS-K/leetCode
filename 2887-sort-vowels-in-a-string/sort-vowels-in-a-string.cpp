@@ -2,20 +2,20 @@ class Solution {
 public:
     bool isVowel(char ch) {
         ch = tolower(ch);
-        return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
     }
     string sortVowels(string s) {
-        vector<char> vowel;
-        for (int i = 0; i < s.size(); i++)
-            if (isVowel(s[i]))
-                vowel.push_back(s[i]);
+        vector<int> arr;
+        for (auto c : s)
+            if (isVowel(c))
+                arr.push_back(c);
 
-        sort(vowel.begin(), vowel.end());
-        int k = 0;
-        for (int i = 0; i < s.size(); i++) {
-            if (isVowel(s[i]))
-                s[i] = vowel[k++];
-        }
+        sort(arr.begin(), arr.end());
+        int i = 0;
+        for (int j = 0; j < s.size(); j++)
+            if (isVowel(s[j]))
+                s[j] = arr[i++];
+
         return s;
     }
 };
