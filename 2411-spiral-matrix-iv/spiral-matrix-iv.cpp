@@ -11,63 +11,38 @@
 class Solution {
 public:
     vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
-        vector<vector<int>> arr(m, vector<int>(n, -1));
-
-        int minRow = 0;
-        int maxRow = m - 1;
-        int minCol = 0;
-        int maxCol = n - 1;
-        int count = 1;
-
-        ListNode* temp = head;
-
-        while (minRow <= maxRow && minCol <= maxCol) {
-            for (int i = minCol; i <= maxCol; i++) {
-                if (temp == nullptr) {
-                    return arr;
-                }
-                arr[minRow][i] = temp->val;
-                temp = temp->next;
+        int total = m*n ;
+        int c = 0 ;
+        vector<vector<int>>ans(m , vector<int>(n , -1));
+        int sr = 0 , er = m-1;
+        int sc = 0 , ec = n-1;
+        while(c < total && head != NULL){
+            for (int i = sc; i <= ec && head != NULL; i++) {
+                ans[sr][i] = head->val;
+                head = head->next;
+                c++;
             }
-            minRow++;
-            if (minRow > maxRow || minCol > maxCol)
-                break;
-
-            for (int i = minRow; i <= maxRow; i++) {
-                if (temp == nullptr) {
-                    return arr;
-                }
-
-                arr[i][maxCol] = temp->val;
-                temp = temp->next;
+            sr++ ;
+            for(int i = sr ; i <= er && head != NULL; i++){
+                ans[i][ec] = head->val;
+                head = head->next;
+                c++;
             }
-            maxCol--;
-            if (minRow > maxRow || minCol > maxCol)
-                break;
-
-            for (int i = maxCol; i >= minCol; i--) {
-                if (temp == nullptr) {
-                    return arr;
-                }
-                arr[maxRow][i] = temp->val;
-                temp = temp->next;
+            ec--;
+            for(int i = ec ; i>= sc&& head != NULL ; i--){
+                ans[er][i] = head->val;
+                head = head->next;
+                c++;
             }
-            maxRow--;
-            if (minRow > maxRow || minCol > maxCol)
-                break;
-
-            for (int i = maxRow; i >= minRow; i--) {
-                if (temp == nullptr) {
-                    return arr;
-                }
-                arr[i][minCol] = temp->val;
-                temp = temp->next;
+            er--;
+            for (int i = er; i >= sr && head != NULL; i--) {
+                ans[i][sc] = head->val;
+                head = head->next;
+                c++;
             }
-            minCol++;
-            if (minRow > maxRow || minCol > maxCol)
-                break;
+            sc++;
         }
 
-        return arr;
+        return ans ;
     }
 };
