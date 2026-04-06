@@ -1,22 +1,20 @@
 class Solution {
 public:
     int findMinDifference(vector<string>& timePoints) {
-        vector<int> minTime(timePoints.size()) ;
-
-        for(int i = 0 ; i<timePoints.size() ; i++){
-            int h = stoi(timePoints[i].substr(0,2));
-            int m = stoi(timePoints[i].substr(3,2));
-            minTime[i] = h*60+m ;
+        vector<int>time ;
+        for(auto s : timePoints){
+            int h = stoi(s.substr(0,2));
+            int m = stoi(s.substr(3,2));
+            time.push_back(h*60+m);
         }
-        sort(minTime.begin() ,minTime.end());
         int minDiff = INT_MAX;
+        sort(time.begin() , time.end());
 
-        for(int i = 0 ; i<minTime.size()-1 ; i++){
-            minDiff = min(minDiff , (minTime[i+1] - minTime[i]) );
-        }
-        int l = (minTime[0]+1440) - minTime[minTime.size()-1];
-        minDiff = min(l, minDiff);
-
-        return minDiff ;
+        for(int i = 1 ; i<time.size() ; i++)
+            minDiff = min(minDiff , time[i]-time[i-1]);
+        
+        int rem = 1440 - time[time.size()-1];
+        
+        return min(minDiff , rem + time[0]) ;
     }
 };
