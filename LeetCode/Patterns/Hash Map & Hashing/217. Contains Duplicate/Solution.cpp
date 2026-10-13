@@ -8,6 +8,5 @@ public:
             x[i]++;
         }
         return false;
-       
     }
 };
